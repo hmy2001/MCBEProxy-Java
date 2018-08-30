@@ -5,10 +5,9 @@ import jp.dip.hmy2001.mcpeProxy.utils.*;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import java.io.*;
-
 public class Main {
     private static Main instance = null;
+    private Config config;
     private final CommandReader console;
     private final SessionManager sessionManager;
     private static final Log logger = LogFactory.getLog("Main Logger");
@@ -26,22 +25,13 @@ public class Main {
 
         this.console = new CommandReader();
 
-        String bindPort = "19132";
-        String serverAddress = "play.lbsg.net";
-        String serverPort = "19132";
-        try {//TODO: Rewirte
-            bindPort = CommandReader.getInstance().getReader().readLine("bindPort > ");
-            serverAddress = CommandReader.getInstance().getReader().readLine("serverAddress > ");
-            serverPort = CommandReader.getInstance().getReader().readLine("serverPort > ");
-        }catch (Exception e){
-            e.printStackTrace();
-        }
+        config = new Config();
 
         this.console.removePromptLine();
         this.console.start();
 
-        sessionManager = new SessionManager(Integer.parseInt(bindPort), serverAddress, Integer.parseInt(serverPort));
-        //sessionManager.start();
+        sessionManager = new SessionManager(Integer.parseInt(config.get("bindPort")), config.get("serverAddress"), Integer.parseInt(config.get("serverPort")));
+        sessionManager.start();
 
         CommandReader.getInstance().stashLine();
         logger.info("MCBEProxy starting now....");
@@ -61,7 +51,7 @@ public class Main {
         console.interrupt();
 
         sessionManager.shutdown();
-        //sessionManager.interrupt();
+        sessionManager.interrupt();
 
         CommandReader.getInstance().stashLine();
         logger.info("Shutdown system....");

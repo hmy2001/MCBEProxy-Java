@@ -28,7 +28,7 @@ public class Session extends Thread{
         }
     }
 
-    public boolean isConnected(){
+    public boolean isConnected(){//TODO: Raknet
         return serverSocket.isConnected();
     }
 

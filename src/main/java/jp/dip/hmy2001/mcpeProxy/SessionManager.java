@@ -4,7 +4,7 @@ import java.net.DatagramPacket;
 import java.net.InetAddress;
 import java.util.*;
 
-public class SessionManager{
+public class SessionManager extends Thread{
     private static SessionManager instance = null;
     private boolean isRunning;
     private final ProxySocket proxySocket;
@@ -14,6 +14,7 @@ public class SessionManager{
 
     public SessionManager(int bindPort, String serverAddress, int serverPort){
         isRunning = true;
+
         try {
             this.serverAddress = InetAddress.getByName(serverAddress);
         }catch (Exception e){
@@ -35,15 +36,21 @@ public class SessionManager{
     }
 
     public void run(){
-        /*while (isRunning){
-            /*for (Session session : new ArrayList<>(this.sessions.values())) {
-                if(!session.isConnected()){
-                    session.close();
-                }
-            }*/
+        while (isRunning){
+            try {
+                Thread.sleep(500);
+            }catch (Exception e){
 
-            /*
-        }*/
+            }
+
+            if(!sessions.isEmpty()){
+                for (Session session : new ArrayList<>(sessions.values())) {
+                    if(!session.isConnected()){
+                        session.close();
+                    }
+                }
+            }
+        }
     }
 
     public void sendServer(DatagramPacket packet, String ip, int port){
