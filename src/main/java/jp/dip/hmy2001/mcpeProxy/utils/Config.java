@@ -3,7 +3,7 @@ package jp.dip.hmy2001.mcpeProxy.utils;
 import java.io.*;
 
 public class Config {
-    private MyProperties properties;
+    private final MyProperties properties;
 
     public Config(){
         properties = new MyProperties();

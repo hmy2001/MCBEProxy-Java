@@ -20,7 +20,7 @@ public class ProxySocket extends Thread{
 
     public void run() {
         while (isRunning){
-            byte buffer[] = new byte[65507];
+            byte[] buffer = new byte[65507];
             DatagramPacket packet = new DatagramPacket(buffer, buffer.length);
 
             try {
@@ -51,7 +51,7 @@ public class ProxySocket extends Thread{
             CommandReader.getInstance().stashLine();
             System.out.println("Closed Socket.");
             CommandReader.getInstance().unstashLine();
-        }catch (Exception e){
+        }catch (Exception ignored){
 
         }
     }

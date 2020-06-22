@@ -7,12 +7,11 @@ import org.apache.commons.logging.LogFactory;
 
 public class Main {
     private static Main instance = null;
-    private Config config;
     private final CommandReader console;
     private final SessionManager sessionManager;
     private static final Log logger = LogFactory.getLog("Main Logger");
 
-    public static void main(String args[]){
+    public static void main(String[] args){
         new Main();
     }
 
@@ -25,7 +24,7 @@ public class Main {
 
         this.console = new CommandReader();
 
-        config = new Config();
+        Config config = new Config();
 
         this.console.removePromptLine();
         this.console.start();

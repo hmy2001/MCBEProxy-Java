@@ -9,8 +9,8 @@ import java.util.ArrayList;
  */
 public class MyProperties {
 
-    private ArrayList<String> keyList;
-    private ArrayList<String> valList;
+    private final ArrayList<String> keyList;
+    private final ArrayList<String> valList;
 
     public MyProperties() {
         keyList = new ArrayList<>();
@@ -22,7 +22,7 @@ public class MyProperties {
         loadP(br);
     }
 
-    public void load(FileInputStream fis, String encoding) throws UnsupportedEncodingException, IOException {
+    public void load(FileInputStream fis, String encoding) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(fis, encoding));
         loadP(br);
     }
@@ -31,7 +31,7 @@ public class MyProperties {
         String s;
         while ((s = br.readLine()) != null) {
             if (s.charAt(0) != '/') {
-                String ss[] = s.split("=", 2);
+                String[] ss = s.split("=", 2);
                 keyList.add(ss[0]);
                 valList.add(ss[1]);
             }
@@ -68,13 +68,13 @@ public class MyProperties {
         storeP(bw);
     }
 
-    public void store(FileOutputStream fos, String encoding) throws UnsupportedEncodingException, IOException {
+    public void store(FileOutputStream fos, String encoding) throws IOException {
         String s;
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(fos, encoding));
         storeP(bw);
     }
 
-    public void store(FileOutputStream fos, String comment, String encoding) throws UnsupportedEncodingException, IOException {
+    public void store(FileOutputStream fos, String comment, String encoding) throws IOException {
         keyList.add(0, comment);
         valList.add(0, null);
         String s;

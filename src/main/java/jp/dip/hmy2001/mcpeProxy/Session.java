@@ -5,10 +5,10 @@ import jp.dip.hmy2001.mcpeProxy.utils.CommandReader;
 import java.net.*;
 
 public class Session extends Thread{
-    private boolean isRunning = false;
+    private boolean isRunning;
     private DatagramSocket serverSocket;
     private InetAddress ip;
-    private int port;
+    private final int port;
 
     public Session(String ip, int port){
         isRunning = true;
@@ -47,7 +47,7 @@ public class Session extends Thread{
 
     public void run() {
         while (isRunning){
-            byte buffer[] = new byte[65507];
+            byte[] buffer = new byte[65507];
             DatagramPacket packet = new DatagramPacket(buffer, buffer.length);
 
             try {
@@ -82,7 +82,7 @@ public class Session extends Thread{
             CommandReader.getInstance().unstashLine();
 
             serverSocket.close();
-        }catch (Exception e){
+        }catch (Exception ignored){
 
         }
     }

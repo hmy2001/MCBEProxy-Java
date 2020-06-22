@@ -10,7 +10,7 @@ public class SessionManager extends Thread{
     private final ProxySocket proxySocket;
     private final Map<String, Session> sessions = new HashMap<>();
     private InetAddress serverAddress;
-    private int serverPort;
+    private final int serverPort;
 
     public SessionManager(int bindPort, String serverAddress, int serverPort){
         isRunning = true;
@@ -39,7 +39,7 @@ public class SessionManager extends Thread{
         while (isRunning){
             try {
                 Thread.sleep(500);
-            }catch (Exception e){
+            }catch (Exception ignored){
 
             }
 
